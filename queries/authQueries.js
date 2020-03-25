@@ -26,16 +26,21 @@ function checkUser (req, res) {
         if (error) {
             throw error;
         }
-        bcrypt.compare(req.body.password, results.rows[0].passwordhash, (err, result) => {
-            if (err) {
-                throw err;
-            }
-            if (result) {
-                res.send("Käyttäjätunnus ja salasana oikein!");
-            } else {
-                res.send("Väärä käyttäjätunnus tai salasana!");
-            }
-        });
+        if (results.rowCount == 1) {
+            bcrypt.compare(req.body.password, results.rows[0].passwordhash, (err, result) => {
+                if (err) {
+                    throw err;
+                }
+                if (result) {
+                    res.send("Käyttäjätunnus ja salasana oikein!");
+                } else {
+                    res.send("Väärä käyttäjätunnus tai salasana!");
+                }
+            });
+        }
+        else {
+            res.send("Tämän nimistä käyttäjätunnusta ei ole olemassa!")
+        }
     });
 };
 
