@@ -16,12 +16,12 @@ function createUser(user, res) {
             if (error) {
                 throw error;
             }
-        res.json({message : "Uusi käyttäjä luotu!"});
+        res.json({message : "Uusi käyttäjä luotu!", status: true});
             });
         });
 };
 
-function checkUser (req, res) {
+function checkLogin (req, res) {
     pool.query('SELECT passwordhash FROM users WHERE username = ($1);', [req.body.username], (error, results) => {
         if (error) {
             throw error;
@@ -32,14 +32,14 @@ function checkUser (req, res) {
                     throw err;
                 }
                 if (result) {
-                    res.json({message : "Sisäänkirjautuminen onnistui!"})
+                    res.json({message: "Sisäänkirjautuminen onnistui!", auth: true });
                 } else {
-                    res.json({message : "Sisäänkirjautuminen epäonnistui: Väärä käyttäjätunnus tai salasana"}).status(403);
+                    res.json({message : "Sisäänkirjautuminen epäonnistui: Väärä käyttäjätunnus tai salasana", auth: false});
                 }
             });
         }
         else {
-            res.json({message : "Tämän nimistä käyttäjätunnusta ei ole olemassa!"}).status(403);
+            res.json({message : "Tämän nimistä käyttäjätunnusta ei ole olemassa!", auth: false});
         }
     });
 };
@@ -61,5 +61,5 @@ const signUp = (req, res) => {
 
   module.exports = {
     signUp,
-    checkUser
+    checkLogin
   }

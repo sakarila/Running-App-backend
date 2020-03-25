@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {signUp, checkUser} = require('../queries/authQueries')
+const {signUp, checkLogin} = require('../queries/authQueries')
 
 function validUser(user) {
     const validUser = typeof user.username == 'string' && user.username.trim() != '';
@@ -17,7 +17,7 @@ router.post('/signup', (req, res) => {
 });
 
 router.post('/signin', (req, res) => {
-    checkUser(req, res);
+    checkLogin(req, res);
 });
 
 router.get('/', (req, res) => {
