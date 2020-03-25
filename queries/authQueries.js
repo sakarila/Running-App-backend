@@ -32,14 +32,14 @@ function checkUser (req, res) {
                     throw err;
                 }
                 if (result) {
-                    res.send("message: Sisäänkirjautuminen onnistui").status(200);
+                    res.send("{message: Sisäänkirjautuminen onnistui}").status(200);
                 } else {
-                    res.send("message: Sisäänkirjautuminen epäonnistui: Väärä käyttäjätunnus tai salasana").status(403);
+                    res.send("{message: Sisäänkirjautuminen epäonnistui: Väärä käyttäjätunnus tai salasana}").status(403);
                 }
             });
         }
         else {
-            res.send("message: Tämän nimistä käyttäjätunnusta ei ole olemassa!").status(403);
+            res.send("{message: Tämän nimistä käyttäjätunnusta ei ole olemassa!}").status(403);
         }
     });
 };
