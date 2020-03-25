@@ -2,12 +2,9 @@ const bcrypt = require('bcrypt');
 const saltRounds = 8;
 
 const Pool = require('pg').Pool
+const connectionString = process.env.DATABASE_URL;
 const pool = new Pool({
-  user: process.env.USER,
-  host: process.env.HOST,
-  database: process.env.DATABASE,
-  password: process.env.PASSWORD,
-  port: process.env.DB_PORT,
+    connectionString: connectionString
 });
 
 function createUser(user, res) {
