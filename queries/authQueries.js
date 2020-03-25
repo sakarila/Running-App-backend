@@ -16,7 +16,7 @@ function createUser(user, res) {
             if (error) {
                 throw error;
             }
-        res.send("Uusi käyttäjä luotu!")
+        res.json({message : "Uusi käyttäjä luotu!"});
             });
         });
 };
@@ -54,7 +54,7 @@ const signUp = (req, res) => {
             createUser(req.body, res);
         }
         else {
-            res.send("Käyttäjätunnus on varattu!");
+            res.json({message :"Käyttäjätunnus on varattu!"});
         }
     });
 };
