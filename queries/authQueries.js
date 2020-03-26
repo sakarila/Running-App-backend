@@ -22,7 +22,7 @@ function createUser(user, res) {
 };
 
 function checkLogin (req, res) {
-    pool.query('SELECT passwordhash FROM users WHERE username = ($1);', [req.body.username], (error, results) => {
+    pool.query('SELECT id, passwordhash FROM users WHERE username = ($1);', [req.body.username], (error, results) => {
         if (error) {
             throw error;
         }
@@ -32,7 +32,7 @@ function checkLogin (req, res) {
                     throw err;
                 }
                 if (result) {
-                    res.json({message: "Sisäänkirjautuminen onnistui!", auth: true });
+                    res.json({message: "Sisäänkirjautuminen onnistui!", auth: true, id: results.rows[0].id});
                 } else {
                     res.json({message : "Sisäänkirjautuminen epäonnistui: Väärä käyttäjätunnus tai salasana", auth: false});
                 }
