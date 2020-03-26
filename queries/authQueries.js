@@ -1,11 +1,6 @@
 const bcrypt = require('bcrypt');
 const saltRounds = 8;
-
-const Pool = require('pg').Pool
-const connectionString = process.env.DATABASE_URL;
-const pool = new Pool({
-    connectionString: connectionString
-});
+const { pool } = require('./pool')
 
 function createUser(user, res) {
     bcrypt.hash(user.password, saltRounds, function(err, hash) {
