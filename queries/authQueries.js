@@ -54,7 +54,7 @@ const signUp = (req, res) => {
             createUser(req.body, res);
         }
         else {
-            res.json({message :"Käyttäjätunnus on varattu!"});
+            res.json({message :"Käyttäjätunnus on varattu!", status: false});
         }
     });
 };
