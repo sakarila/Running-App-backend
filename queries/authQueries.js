@@ -12,7 +12,7 @@ function createUser(user, res) {
         if (err) {
             throw err;
         }
-        pool.query('INSERT INTO users (username, passwordhash) VALUES (($1), ($2));', [user.username, hash], (error, results) => {
+        pool.query('INSERT INTO users (username, passwordhash, weight) VALUES (($1), ($2), ($3));', [user.username, hash, user.weight], (error, results) => {
             if (error) {
                 throw error;
             }
