@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const saltRounds = 8;
 const { pool } = require('./pool')
 
@@ -27,7 +28,9 @@ function checkLogin (req, res) {
                     throw err;
                 }
                 if (result) {
-                    res.json({message: "Sisäänkirjautuminen onnistui!", auth: true, id: results.rows[0].id});
+                    jwt.sign({id: results.rows[0].id}, process.env.JWT_KEY, (err, token) => {
+                        res.json({message: "Sisäänkirjautuminen onnistui!", auth: true, id: results.rows[0].id, token: token});
+                    })
                 } else {
                     res.json({message : "Sisäänkirjautuminen epäonnistui: Väärä käyttäjätunnus tai salasana", auth: false});
                 }
