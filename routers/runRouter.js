@@ -23,10 +23,6 @@ router.post('/', verifyToken, (req, res) => {
     })
 });
 
-router.get('/', (req, res) => {
-    res.send("GET-metodin root. Ihan testinä");
-});
-
 function verifyToken(req, res, next) {
     const authHeader = req.headers['authorization'];
 
