@@ -4,7 +4,13 @@ const router = express.Router();
 const {createRun, getRuns} = require('../queries/runQueries')
 
 router.post('/all', (req, res) => {
-    getRuns(req, res);
+    jwt.verify(req.token, process.env.JWT_KEY, (err, authData) => {
+        if(err) {
+            res.sendStatus(403);
+        } else {
+            getRuns(req, res);
+        }
+    })
 });
 
 router.post('/', verifyToken, (req, res) => {
@@ -13,7 +19,6 @@ router.post('/', verifyToken, (req, res) => {
             res.sendStatus(403);
         } else {
             createRun(req, res);
-            console.log(authData);
         }
     })
 });

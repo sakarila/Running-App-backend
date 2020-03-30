@@ -11,7 +11,7 @@ function createRun(req, res) {
 };
 
 function getRuns(req, res) {
-    pool.query('SELECT time, altitude, distance, calories, coordinates FROM runs WHERE userid=($1);', [req.body.userid], (error, results) => {
+    pool.query('SELECT id, time, altitude, distance, calories FROM runs WHERE userid=($1);', [req.body.userid], (error, results) => {
         if (error) {
             throw error;
         }
