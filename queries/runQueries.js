@@ -1,8 +1,8 @@
 const { pool } = require('./pool')
 
 function createRun(req, res) {
-    pool.query('INSERT INTO runs (userid, time, altitude, distance, calories, coordinates) VALUES (($1), ($2), ($3), ($4), ($5), ($6));',
-    [req.body.userid, req.body.time, req.body.altitude, req.body.distance, req.body.calories, JSON.stringify(req.body.coordinates)], (error, results) => {
+    pool.query('INSERT INTO runs (date, userid, time, altitude, distance, calories, coordinates) VALUES (($1), ($2), ($3), ($4), ($5), ($6), ($7));',
+    [req.body.date, req.body.userid, req.body.time, req.body.altitude, req.body.distance, req.body.calories, JSON.stringify(req.body.coordinates)], (error, results) => {
         if (error) {
             throw error;
         }
@@ -11,7 +11,7 @@ function createRun(req, res) {
 };
 
 function getRuns(req, res) {
-    pool.query('SELECT id, time, altitude, distance, calories FROM runs WHERE userid=($1);', [req.body.userid], (error, results) => {
+    pool.query('SELECT id, date, time, altitude, distance, calories FROM runs WHERE userid=($1);', [req.body.userid], (error, results) => {
         if (error) {
             throw error;
         }
