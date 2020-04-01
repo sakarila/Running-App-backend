@@ -18,7 +18,7 @@ function createUser(user, res) {
 };
 
 function checkLogin (req, res) {
-    pool.query('SELECT id, passwordhash FROM users WHERE username = ($1);', [req.body.username], (error, results) => {
+    pool.query('SELECT id, passwordhash, weight FROM users WHERE username = ($1);', [req.body.username], (error, results) => {
         if (error) {
             throw error;
         }
@@ -29,7 +29,7 @@ function checkLogin (req, res) {
                 }
                 if (result) {
                     jwt.sign({id: results.rows[0].id}, process.env.JWT_KEY, (err, token) => {
-                        res.json({message: "Sisäänkirjautuminen onnistui!", auth: true, id: results.rows[0].id, token: token});
+                        res.json({message: "Sisäänkirjautuminen onnistui!", auth: true, id: results.rows[0].id, weight: results.rows[0].weight, token: token});
                     })
                 } else {
                     res.json({message : "Sisäänkirjautuminen epäonnistui: Väärä käyttäjätunnus tai salasana", auth: false});
