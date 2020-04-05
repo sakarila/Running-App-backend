@@ -12,7 +12,7 @@ function createUser(user, res) {
             if (error) {
                 throw error;
             }
-        res.json({message : "Uusi käyttäjä luotu!", status: true});
+        res.json({message : "New user created!", status: true});
             });
         });
 };
@@ -29,15 +29,15 @@ function checkLogin (req, res) {
                 }
                 if (result) {
                     jwt.sign({id: results.rows[0].id}, process.env.JWT_KEY, (err, token) => {
-                        res.json({message: "Sisäänkirjautuminen onnistui!", auth: true, id: results.rows[0].id, weight: results.rows[0].weight, token: token});
+                        res.json({ auth: true, id: results.rows[0].id, weight: results.rows[0].weight, token: token});
                     })
                 } else {
-                    res.json({message : "Sisäänkirjautuminen epäonnistui: Väärä käyttäjätunnus tai salasana", auth: false});
+                    res.json({message : "Login failed: Wrong username or password", auth: false});
                 }
             });
         }
         else {
-            res.json({message : "Tämän nimistä käyttäjätunnusta ei ole olemassa!", auth: false});
+            res.json({message : "Login failed: Username does not exist", auth: false});
         }
     });
 };
@@ -52,7 +52,7 @@ const signUp = (req, res) => {
             createUser(req.body, res);
         }
         else {
-            res.json({message :"Käyttäjätunnus on varattu!", status: false});
+            res.json({message :"Username has already been taken", status: false});
         }
     });
 };
