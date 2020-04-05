@@ -20,8 +20,4 @@ router.post('/signin', (req, res) => {
     checkLogin(req, res);
 });
 
-router.get('/', (req, res) => {
-    res.send("Ainakin root toimii");
-});
-
 module.exports = router;

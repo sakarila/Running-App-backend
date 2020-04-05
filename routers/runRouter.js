@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const router = express.Router();
 const {createRun, getRuns} = require('../queries/runQueries')
 
-router.post('/all', verifyToken, (req, res) => {
+router.get('/all', verifyToken, (req, res) => {
     jwt.verify(req.token, process.env.JWT_KEY, (err, authData) => {
         if(err) {
             res.sendStatus(403);
